@@ -26,6 +26,7 @@ const userSchema = new Schema({
     enum: ['admin', 'user', 'expert'], // Allow only 'admin' or 'user'
     default: 'user', // Default role is 'user'
   },
+}, {
   timestamps: true, // Automatically adds createdAt and updatedAt timestamps
 });
 
