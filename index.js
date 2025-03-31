@@ -10,6 +10,7 @@ require('./config/mongoose');
 const expertUser = require('./routes/expert-user');
 const user = require('./routes/user');
 const login = require('./routes/login');
+const booking = require('./routes/booking');
 
 app.use(cors()) // Cross-Origin Resource Sharing
 app.use(express.json()) // for parsing application/json
@@ -19,6 +20,7 @@ app.use(morgan('dev'));
 app.use('/api/v1/expert', expertUser);
 app.use('/api/v1/user', user);
 app.use('/api/v1/login', login);
+app.use('/api/v1/booking', booking);
 
 app.listen(PORT,()=>
     {
