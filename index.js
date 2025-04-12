@@ -24,6 +24,9 @@ app.use('/api/v1/expert', expertUser);
 app.use('/api/v1/user', user);
 app.use('/api/v1/login', login);
 app.use('/api/v1/booking', booking);
+app.use('/api/v1/feedback', feedback);
+app.use('/api/v1/notification', notification);
+app.use('/api/v1/verification', verification);
 
 app.listen(PORT,()=>
     {
