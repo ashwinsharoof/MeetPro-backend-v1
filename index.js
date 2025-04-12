@@ -11,6 +11,9 @@ const expertUser = require('./routes/expert-user');
 const user = require('./routes/user');
 const login = require('./routes/login');
 const booking = require('./routes/booking');
+const feedback = require('./routes/feedback');
+const notification = require('./routes/notification');
+const verification = require('./routes/verification');
 
 app.use(cors()) // Cross-Origin Resource Sharing
 app.use(express.json()) // for parsing application/json

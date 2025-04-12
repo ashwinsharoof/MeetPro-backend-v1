@@ -43,6 +43,10 @@ const expertSchema = new Schema({
     enum: ['admin', 'user', 'expert'], // Allow only 'admin' or 'user'
     default: 'expert', // Default role is 'user'
   },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   services: [
     {
       type: String,

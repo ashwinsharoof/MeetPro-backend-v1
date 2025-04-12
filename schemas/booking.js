@@ -27,6 +27,27 @@ const bookingSchema = new Schema({
     type: Date,
     default: Date.now, // Automatically set the current time when the booking is created
   },
+  paymentStatus: {
+    type: String,
+    enum: ['pending', 'paid', 'failed'],
+    default: 'pending',
+  },
+  paymentAmount: {
+    type: Number,
+    required: true,
+  },
+  paymentIntentId: {
+    type: String,
+    required: false,
+  },
+  notification30Sent: {
+    type: Boolean,
+    default: false,
+  },
+  notificationNowSent: {
+    type: Boolean,
+    default: false,
+  }
 }, {
   timestamps: true, // This will add `createdAt` and `updatedAt` fields automatically
 });

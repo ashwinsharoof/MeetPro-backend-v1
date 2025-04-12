@@ -35,4 +35,15 @@ const sendBookingEmail = async (userEmail, meetingLink, userName) => {
   }
 };
 
-module.exports = sendBookingEmail;
+const sendEmail = async (to, subject, text) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to,
+    subject,
+    text
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+module.exports = { sendBookingEmail, sendEmail };

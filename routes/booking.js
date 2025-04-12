@@ -1,6 +1,8 @@
 const express = require('express');
-const Booking = require('../schemas/booking'); // Assuming the Booking schema is in the same directory
+const Booking = require('../schemas/booking');
 const router = express.Router();
+//const razorpay = require('../config/payment');
+const crypto = require('crypto');
 
 // Create a new booking
 router.post('/create', async (req, res) => {
@@ -167,6 +169,74 @@ router.get('/expert/:expertId/upcoming', async (req, res) => {
       res.status(500).json({ message: 'Error retrieving completed bookings for expert' });
     }
   });
+
+ /* router.post('/create-payment-order', async (req, res) => {
+    try {
+      const { bookingId } = req.body;
+  
+      // Find the booking
+      const booking = await Booking.findById(bookingId);
+      if (!booking) {
+        return res.status(404).json({ message: 'Booking not found.' });
+      }
+  
+      const options = {
+        amount: booking.paymentAmount * 100,  // Amount in paise
+        currency: 'INR',
+        receipt: bookingId,
+        payment_capture: 1,  // Automatically capture the payment
+      };
+  
+      // Create the payment order on Razorpay
+      const order = await razorpay.orders.create(options);
+  
+      // Save the Razorpay Order ID to the booking
+      booking.paymentOrderId = order.id;
+      await booking.save();
+  
+      // Send the order details to the frontend
+      res.json({
+        orderId: order.id,
+        amount: booking.paymentAmount,
+        currency: 'INR',
+        keyId: process.env.RAZORPAY_KEY_ID,  // Razorpay Key ID
+      });
+    } catch (error) {
+      console.error('Error creating payment order:', error);
+      res.status(500).json({ message: 'Failed to create payment order.' });
+    }
+  });
+
+  // Verify Razorpay payment
+router.post('/verify-payment', async (req, res) => {
+    const { paymentOrderId, paymentId, signature } = req.body;
+  
+    try {
+      const booking = await Booking.findOne({ paymentOrderId });
+      if (!booking) {
+        return res.status(404).json({ message: 'Booking not found.' });
+      }
+  
+      // Razorpay signature verification
+      const generatedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+        .update(paymentOrderId + '|' + paymentId)
+        .digest('hex');
+  
+      if (generatedSignature !== signature) {
+        return res.status(400).json({ message: 'Payment signature mismatch' });
+      }
+  
+      // Update booking payment status
+      booking.paymentStatus = 'paid';
+      await booking.save();
+  
+      // Respond with success
+      res.json({ message: 'Payment verified and booking updated successfully' });
+    } catch (error) {
+      console.error('Error verifying payment:', error);
+      res.status(500).json({ message: 'Payment verification failed.' });
+    }
+  }); */
   
 
 module.exports = router;
