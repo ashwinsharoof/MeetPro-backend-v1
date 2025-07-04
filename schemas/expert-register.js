@@ -30,14 +30,71 @@ const expertSchema = new Schema({
     type: String,
     required: true
   },
+  // availability: {
+  //   type: String,  // You can define this to be an enum or a more structured object based on your needs
+  //   required: true
+  // },
+
   availability: {
-    type: String,  // You can define this to be an enum or a more structured object based on your needs
-    required: true
+    type: Object,
+    required: false,
+    default: {
+      Monday: [],
+      Tuesday: [],
+      Wednesday: [],
+      Thursday: [],
+      Friday: [],
+      Saturday: [],
+      Sunday: [],
+    }
   },
+  
   calendar: {
     type: Map,
-    of: Date  // You can store the calendar dates and times here, or you may structure it differently depending on your needs
+    of: Date, // Automatically cast strings to Date
+    required: false,
   },
+  
+  timeZone: {
+    type: String,
+    required: false,
+  },
+  preBooking: {
+    type: String,
+    required: false,
+  },
+  meetingLocation: {
+    type: String,
+    required: false,
+  },
+  // monday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // tuesday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // wednesday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // thursday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // friday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // saturday: {
+  //   type: Array,
+  //   required: false,
+  // },
+  // sunday: {
+  //   type: Array,
+  //   required: false,
+  // },
   role: {
     type: String,
     enum: ['admin', 'user', 'expert'], // Allow only 'admin' or 'user'

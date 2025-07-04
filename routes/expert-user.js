@@ -6,7 +6,7 @@ const router = express.Router();
 // Register a new expert
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, username, mobileNumber, category, availability, services, role  } = req.body;
+    const { email, password, username, mobileNumber, category, availability, services, role, calendar  } = req.body;
 
     // Check if the expert already exists
     const existingExpert = await Expert.findOne({ email });
@@ -27,6 +27,7 @@ router.post('/register', async (req, res) => {
       availability,
       services,
       role : role || 'expert',
+      calendar,
     });
 
     // Save expert to the database
@@ -67,7 +68,7 @@ router.get('/:id', async (req, res) => {
 // Update an expert by ID
 router.put('/:id', async (req, res) => {
   try {
-    const { email, password, username, mobileNumber, category, availability, services } = req.body;
+    const { email, password, username, mobileNumber, category, availability, services, timeZone, preBooking, meetingLocation, monday, tuesday, wednesday, thursday, friday, saturday, sunday } = req.body;
 
     // Find the expert and update
     const expert = await Expert.findById(req.params.id);
@@ -87,6 +88,17 @@ router.put('/:id', async (req, res) => {
     expert.category = category || expert.category;
     expert.availability = availability || expert.availability;
     expert.services = services || expert.services;
+    expert.timeZone = timeZone || expert.timeZone;
+    expert.preBooking = preBooking || expert.preBooking;
+    expert.meetingLocation = meetingLocation || expert.meetingLocation;
+    expert.monday = monday || expert.monday;
+    expert.tuesday = tuesday || expert.tuesday;
+    expert.wednesday = wednesday || expert.wednesday;
+    expert.thursday = thursday || expert.thursday;
+    expert.friday = friday || expert.friday;
+    expert.saturday = saturday || expert.saturday;
+    expert.sunday = sunday || expert.sunday;
+
 
     // Save the updated expert
     await expert.save();

@@ -2,6 +2,7 @@ const User = require('../schemas/user-register');
 const Expert = require('../schemas/expert-register');
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 router.post('/user', async (req, res) => {
@@ -43,7 +44,7 @@ router.post('/expert', async (req, res) => {
   
       const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
   
-      res.status(200).json({ token });
+      res.status(200).json({ token, userId: user._id});
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: 'Server error' });

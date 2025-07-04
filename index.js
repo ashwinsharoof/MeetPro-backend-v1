@@ -14,6 +14,7 @@ const booking = require('./routes/booking');
 const feedback = require('./routes/feedback');
 const notification = require('./routes/notification');
 const verification = require('./routes/verification');
+const service = require('./routes/service')
 
 app.use(cors()) // Cross-Origin Resource Sharing
 app.use(express.json()) // for parsing application/json
@@ -24,6 +25,7 @@ app.use('/api/v1/expert', expertUser);
 app.use('/api/v1/user', user);
 app.use('/api/v1/login', login);
 app.use('/api/v1/booking', booking);
+app.use('/api/v1/service', service);
 app.use('/api/v1/feedback', feedback);
 app.use('/api/v1/notification', notification);
 app.use('/api/v1/verification', verification);
